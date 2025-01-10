@@ -13,7 +13,12 @@ contract FiveswapV2Factory is IFiveswapV2Factory {
 
     event PairCreated(address indexed token0, address indexed token1, address pair, uint);
 
+    event FeeToUpdated(address indexed previousFeeTo, address indexed newFeeTo);
+
+    event FeeToSetterUpdated(address indexed previousFeeToSetter, address indexed newFeeToSetter);
+
     constructor(address _feeToSetter) public {
+        require(_feeToSetter != address(0), 'FiveswapV2: ZERO_ADDRESS'); // Zero-address check added
         feeToSetter = _feeToSetter;
     }
 
@@ -31,7 +36,7 @@ contract FiveswapV2Factory is IFiveswapV2Factory {
         assembly {
             pair := create2(0, add(bytecode, 32), mload(bytecode), salt)
         }
-        
+
         IFiveswapV2Pair(pair).initialize(token0, token1);
         getPair[token0][token1] = pair;
         getPair[token1][token0] = pair; // populate mapping in the reverse direction
@@ -41,11 +46,15 @@ contract FiveswapV2Factory is IFiveswapV2Factory {
 
     function setFeeTo(address _feeTo) external {
         require(msg.sender == feeToSetter, 'FiveswapV2: FORBIDDEN');
+        require(_feeTo != address(0), 'FiveswapV2: ZERO_ADDRESS'); // Zero-address check added
+        emit FeeToUpdated(feeTo, _feeTo);
         feeTo = _feeTo;
     }
 
     function setFeeToSetter(address _feeToSetter) external {
         require(msg.sender == feeToSetter, 'FiveswapV2: FORBIDDEN');
+        require(_feeToSetter != address(0), 'FiveswapV2: ZERO_ADDRESS'); // Zero-address check added
+        emit FeeToSetterUpdated(feeToSetter, _feeToSetter);
         feeToSetter = _feeToSetter;
     }
 }

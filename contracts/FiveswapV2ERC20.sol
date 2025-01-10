@@ -38,23 +38,29 @@ contract FiveswapV2ERC20 is IFiveswapV2ERC20 {
     }
 
     function _mint(address to, uint value) internal {
+        require(to != address(0), "to address cannot be 0");
         totalSupply = totalSupply.add(value);
         balanceOf[to] = balanceOf[to].add(value);
         emit Transfer(address(0), to, value);
     }
 
     function _burn(address from, uint value) internal {
+        require(from != address(0), "to address cannot be 0");
         balanceOf[from] = balanceOf[from].sub(value);
         totalSupply = totalSupply.sub(value);
         emit Transfer(from, address(0), value);
     }
 
     function _approve(address owner, address spender, uint value) private {
+        require(owner != address(0), "owner address cannot be 0");
+        require(spender != address(0), "spender address cannot be 0");
         allowance[owner][spender] = value;
         emit Approval(owner, spender, value);
     }
 
     function _transfer(address from, address to, uint value) private {
+        require(from != address(0), "from address cannot be 0");
+        require(to != address(0), "to address cannot be 0");
         balanceOf[from] = balanceOf[from].sub(value);
         balanceOf[to] = balanceOf[to].add(value);
         emit Transfer(from, to, value);
