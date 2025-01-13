@@ -17,6 +17,8 @@ contract FiveswapV2Factory is IFiveswapV2Factory {
 
     event FeeToSetterUpdated(address indexed previousFeeToSetter, address indexed newFeeToSetter);
 
+    event FeeToSetterRenounced(address indexed previousFeeToSetter);
+
     constructor(address _feeToSetter) public {
         require(_feeToSetter != address(0), 'FiveswapV2: ZERO_ADDRESS'); // Zero-address check added
         feeToSetter = _feeToSetter;
@@ -56,5 +58,11 @@ contract FiveswapV2Factory is IFiveswapV2Factory {
         require(_feeToSetter != address(0), 'FiveswapV2: ZERO_ADDRESS'); // Zero-address check added
         emit FeeToSetterUpdated(feeToSetter, _feeToSetter);
         feeToSetter = _feeToSetter;
+    }
+
+    function renounceFeeToSetter() external {
+        require(msg.sender == feeToSetter, 'FiveswapV2: FORBIDDEN');
+        emit FeeToSetterRenounced(feeToSetter);
+        feeToSetter = address(0); // Ownership is renounced
     }
 }
