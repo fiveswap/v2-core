@@ -7,6 +7,9 @@
     "type": "git",
     "url": "https://github.com/fiveswap/v2-core"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "fiveswap",
     "ethereum",
@@ -23,18 +26,18 @@
   },
   "devDependencies": {
     "@types/chai": "^4.2.6",
-    "@types/mocha": "^5.2.7",
+    "@types/node": "^22.10.7",
     "chai": "^4.2.0",
     "ethereum-waffle": "^2.4.1",
     "ethereumjs-util": "^6.2.0",
-    "mocha": "^6.2.2",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0",
     "solc": "0.5.16",
-    "ts-node": "^8.5.4",
-    "typescript": "^3.7.3"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
   },
   "scripts": {
+    "build": "tsc",
     "lint": "yarn prettier ./test/*.ts --check",
     "lint:fix": "yarn prettier ./test/*.ts --write",
     "clean": "rimraf ./build/",
