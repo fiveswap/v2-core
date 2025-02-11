@@ -48,7 +48,6 @@ contract FiveswapV2Factory is IFiveswapV2Factory {
 
     function setFeeTo(address _feeTo) external {
         require(msg.sender == feeToSetter, 'FiveswapV2: FORBIDDEN');
-        require(_feeTo != address(0), 'FiveswapV2: ZERO_ADDRESS'); // Zero-address check added
         emit FeeToUpdated(feeTo, _feeTo);
         feeTo = _feeTo;
     }
