@@ -2,10 +2,13 @@
 
 pragma solidity =0.5.16;
 
-// helper methods for interacting with ERC20 tokens and sending PEN that do not consistently return true/false
 library TransferHelper {
-    function safeApprove(address token, address to, uint256 value) internal {
-        // bytes4(keccak256(bytes('approve(address,uint256)')));
+    function safeApprove(
+        address token,
+        address to,
+        uint256 value
+    ) internal {
+        require(isContract(token), 'TransferHelper::safeApprove: invalid token address');
         (bool success, bytes memory data) = token.call(abi.encodeWithSelector(0x095ea7b3, to, value));
         require(
             success && (data.length == 0 || abi.decode(data, (bool))),
@@ -13,8 +16,12 @@ library TransferHelper {
         );
     }
 
-    function safeTransfer(address token, address to, uint256 value) internal {
-        // bytes4(keccak256(bytes('transfer(address,uint256)')));
+    function safeTransfer(
+        address token,
+        address to,
+        uint256 value
+    ) internal {
+        require(isContract(token), 'TransferHelper::safeTransfer: invalid token address');
         (bool success, bytes memory data) = token.call(abi.encodeWithSelector(0xa9059cbb, to, value));
         require(
             success && (data.length == 0 || abi.decode(data, (bool))),
@@ -22,8 +29,13 @@ library TransferHelper {
         );
     }
 
-    function safeTransferFrom(address token, address from, address to, uint256 value) internal {
-        // bytes4(keccak256(bytes('transferFrom(address,address,uint256)')));
+    function safeTransferFrom(
+        address token,
+        address from,
+        address to,
+        uint256 value
+    ) internal {
+        require(isContract(token), 'TransferHelper::transferFrom: invalid token address');
         (bool success, bytes memory data) = token.call(abi.encodeWithSelector(0x23b872dd, from, to, value));
         require(
             success && (data.length == 0 || abi.decode(data, (bool))),
@@ -32,7 +44,15 @@ library TransferHelper {
     }
 
     function safeTransferPEN(address to, uint256 value) internal {
-        (bool success, ) = to.call.value(value)(new bytes(0));
-        require(success, 'TransferHelper::safeTransferPEN: PEN transfer failed');
+        (bool success, ) = to.call{value: value}(new bytes(0));
+        require(success, 'TransferHelper::safeTransferETH: ETH transfer failed');
+    }
+
+    function isContract(address account) internal view returns (bool) {
+        uint256 size;
+        assembly {
+            size := extcodesize(account)
+        }
+        return size > 0;
     }
 }

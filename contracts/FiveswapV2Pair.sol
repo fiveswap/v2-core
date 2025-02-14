@@ -15,9 +15,9 @@ contract FiveswapV2Pair is IFiveswapV2Pair, FiveswapV2ERC20 {
     uint public constant MINIMUM_LIQUIDITY = 10**3; // This is set and used to avoid division by zero
     bytes4 private constant SELECTOR = bytes4(keccak256(bytes('transfer(address,uint256)')));
 
-    address public factory;
-    address public token0;
-    address public token1;
+    address public factory; //Cant turn in to immutable variable as we're using an older version of solidity
+    address public token0;  //Cant turn in to immutable variable as we're using an older version of solidity
+    address public token1;  //Cant turn in to immutable variable as we're using an older version of solidity
 
     uint112 private reserve0;        // uses single storage slot, accessible via getReserves
     uint112 private reserve1;        // uses single storage slot, accessible via getReserves
@@ -41,11 +41,19 @@ contract FiveswapV2Pair is IFiveswapV2Pair, FiveswapV2ERC20 {
         _blockTimestampLast = blockTimestampLast;
     }
 
-    function _safeTransfer(address token, address to, uint value) private {
-        (bool success, bytes memory data) = token.call(abi.encodeWithSelector(SELECTOR, to, value));
-        require(success && (data.length == 0 || abi.decode(data, (bool))), 'FiveswapV2: TRANSFER_FAILED');
+function _safeTransfer(address token, address to, uint value) private {
+    uint256 size;
+    assembly {
+        size := extcodesize(token)
     }
+    require(size > 0, "FiveswapV2: INVALID_TOKEN_ADDRESS");
 
+    (bool success, bytes memory data) = token.call(abi.encodeWithSelector(SELECTOR, to, value));
+    require(success && (data.length == 0 || abi.decode(data, (bool))), "FiveswapV2: TRANSFER_FAILED");
+}
+
+
+    event Initialized(address indexed token0, address indexed token1);
     event Mint(address indexed sender, uint amount0, uint amount1);
     event Burn(address indexed sender, uint amount0, uint amount1, address indexed to);
     event Swap(
@@ -63,11 +71,15 @@ contract FiveswapV2Pair is IFiveswapV2Pair, FiveswapV2ERC20 {
     }
 
     // called once by the factory at time of deployment
-    function initialize(address _token0, address _token1) external {
-        require(msg.sender == factory, 'FiveswapV2: FORBIDDEN'); // sufficient check
-        token0 = _token0;
-        token1 = _token1;
-    }
+function initialize(address _token0, address _token1) external {
+    require(msg.sender == factory, 'FiveswapV2: FORBIDDEN'); // sufficient check
+    require(_token0 != address(0), 'FiveswapV2: INVALID_TOKEN0'); // zero address check
+    require(_token1 != address(0), 'FiveswapV2: INVALID_TOKEN1'); // zero address check
+    emit Initialized(_token0, _token1);
+    token0 = _token0;
+    token1 = _token1;
+}
+
 
     // update reserves and, on the first call per block, price accumulators
     function _update(uint balance0, uint balance1, uint112 _reserve0, uint112 _reserve1) private {
