@@ -96,6 +96,7 @@ contract FiveswapV2Pair is IFiveswapV2Pair, FiveswapV2ERC20 {
                 uint rootKLast = Math.sqrt(_kLast);
                 if (rootK > rootKLast) {
                     uint numerator = totalSupply.mul(rootK.sub(rootKLast));
+                    //TODO: check if its 0.3% and if 5 can be dynamic
                     uint denominator = rootK.mul(5).add(rootKLast);
                     uint liquidity = numerator / denominator;
                     if (liquidity > 0) _mint(feeTo, liquidity);
