@@ -5,8 +5,8 @@ import { deployContract } from 'ethereum-waffle'
 import { expandTo18Decimals } from './utilities'
 
 import ERC20 from '../../build/ERC20.json'
-import fiveswapV2Factory from '../../build/fiveswapV2Factory.json'
-import fiveswapV2Pair from '../../build/fiveswapV2Pair.json'
+import pentaswapV2Factory from '../../build/pentaswapV2Factory.json'
+import pentaswapV2Pair from '../../build/pentaswapV2Pair.json'
 
 interface FactoryFixture {
   factory: Contract
@@ -17,7 +17,7 @@ const overrides = {
 }
 
 export async function factoryFixture(_: Web3Provider, [wallet]: Wallet[]): Promise<FactoryFixture> {
-  const factory = await deployContract(wallet, fiveswapV2Factory, [wallet.address], overrides)
+  const factory = await deployContract(wallet, pentaswapV2Factory, [wallet.address], overrides)
   return { factory }
 }
 
@@ -35,7 +35,7 @@ export async function pairFixture(provider: Web3Provider, [wallet]: Wallet[]): P
 
   await factory.createPair(tokenA.address, tokenB.address, overrides)
   const pairAddress = await factory.getPair(tokenA.address, tokenB.address)
-  const pair = new Contract(pairAddress, JSON.stringify(fiveswapV2Pair.abi), provider).connect(wallet)
+  const pair = new Contract(pairAddress, JSON.stringify(pentaswapV2Pair.abi), provider).connect(wallet)
 
   const token0Address = (await pair.token0()).address
   const token0 = tokenA.address === token0Address ? tokenA : tokenB

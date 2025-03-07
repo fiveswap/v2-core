@@ -14,7 +14,7 @@ chai.use(solidity)
 const TOTAL_SUPPLY = expandTo18Decimals(10000)
 const TEST_AMOUNT = expandTo18Decimals(10)
 
-describe('FiveswapV2ERC20', () => {
+describe('PentaswapV2ERC20', () => {
   const provider = new MockProvider({
     hardfork: 'istanbul',
     mnemonic: 'horn horn horn horn horn horn horn horn horn horn horn horn',
@@ -29,7 +29,7 @@ describe('FiveswapV2ERC20', () => {
 
   it('name, symbol, decimals, totalSupply, balanceOf, DOMAIN_SEPARATOR, PERMIT_TYPEHASH', async () => {
     const name = await token.name()
-    expect(name).to.eq('Fiveswap V2')
+    expect(name).to.eq('Pentaswap V2')
     expect(await token.symbol()).to.eq('FIVE-V2')
     expect(await token.decimals()).to.eq(18)
     expect(await token.totalSupply()).to.eq(TOTAL_SUPPLY)

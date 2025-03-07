@@ -79,13 +79,13 @@ var utils_1 = require("ethers/utils");
 var ethereum_waffle_1 = require("ethereum-waffle");
 var utilities_1 = require("./shared/utilities");
 var fixtures_1 = require("./shared/fixtures");
-var FiveswapV2Pair_json_1 = __importDefault(require("../build/FiveswapV2Pair.json"));
+var PentaswapV2Pair_json_1 = __importDefault(require("../build/PentaswapV2Pair.json"));
 chai_1.default.use(ethereum_waffle_1.solidity);
 var TEST_ADDRESSES = [
     '0x1000000000000000000000000000000000000000',
     '0x2000000000000000000000000000000000000000'
 ];
-describe('FiveswapV2Factory', function () {
+describe('PentaswapV2Factory', function () {
     var provider = new ethereum_waffle_1.MockProvider({
         hardfork: 'istanbul',
         mnemonic: 'horn horn horn horn horn horn horn horn horn horn horn horn',
@@ -133,19 +133,19 @@ describe('FiveswapV2Factory', function () {
             return __generator(this, function (_h) {
                 switch (_h.label) {
                     case 0:
-                        bytecode = "0x".concat(FiveswapV2Pair_json_1.default.evm.bytecode.object);
+                        bytecode = "0x".concat(PentaswapV2Pair_json_1.default.evm.bytecode.object);
                         create2Address = (0, utilities_1.getCreate2Address)(factory.address, tokens, bytecode);
                         return [4 /*yield*/, (0, chai_1.expect)(factory.createPair.apply(factory, tokens))
                                 .to.emit(factory, 'PairCreated')
                                 .withArgs(TEST_ADDRESSES[0], TEST_ADDRESSES[1], create2Address, (0, utils_1.bigNumberify)(1))];
                     case 1:
                         _h.sent();
-                        return [4 /*yield*/, (0, chai_1.expect)(factory.createPair.apply(factory, tokens)).to.be.reverted]; // FiveswapV2: PAIR_EXISTS
+                        return [4 /*yield*/, (0, chai_1.expect)(factory.createPair.apply(factory, tokens)).to.be.reverted]; // PentaswapV2: PAIR_EXISTS
                     case 2:
-                        _h.sent(); // FiveswapV2: PAIR_EXISTS
-                        return [4 /*yield*/, (0, chai_1.expect)(factory.createPair.apply(factory, tokens.slice().reverse())).to.be.reverted]; // FiveswapV2: PAIR_EXISTS
+                        _h.sent(); // PentaswapV2: PAIR_EXISTS
+                        return [4 /*yield*/, (0, chai_1.expect)(factory.createPair.apply(factory, tokens.slice().reverse())).to.be.reverted]; // PentaswapV2: PAIR_EXISTS
                     case 3:
-                        _h.sent(); // FiveswapV2: PAIR_EXISTS
+                        _h.sent(); // PentaswapV2: PAIR_EXISTS
                         _a = chai_1.expect;
                         return [4 /*yield*/, factory.getPair.apply(factory, tokens)];
                     case 4:
@@ -162,7 +162,7 @@ describe('FiveswapV2Factory', function () {
                         return [4 /*yield*/, factory.allPairsLength()];
                     case 7:
                         _d.apply(void 0, [_h.sent()]).to.eq(1);
-                        pair = new ethers_1.Contract(create2Address, JSON.stringify(FiveswapV2Pair_json_1.default.abi), provider);
+                        pair = new ethers_1.Contract(create2Address, JSON.stringify(PentaswapV2Pair_json_1.default.abi), provider);
                         _e = chai_1.expect;
                         return [4 /*yield*/, pair.factory()];
                     case 8:
@@ -219,7 +219,7 @@ describe('FiveswapV2Factory', function () {
         var _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, (0, chai_1.expect)(factory.connect(other).setFeeTo(other.address)).to.be.revertedWith('FiveswapV2: FORBIDDEN')];
+                case 0: return [4 /*yield*/, (0, chai_1.expect)(factory.connect(other).setFeeTo(other.address)).to.be.revertedWith('PentaswapV2: FORBIDDEN')];
                 case 1:
                     _b.sent();
                     return [4 /*yield*/, factory.setFeeTo(wallet.address)];
@@ -237,7 +237,7 @@ describe('FiveswapV2Factory', function () {
         var _a;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, (0, chai_1.expect)(factory.connect(other).setFeeToSetter(other.address)).to.be.revertedWith('FiveswapV2: FORBIDDEN')];
+                case 0: return [4 /*yield*/, (0, chai_1.expect)(factory.connect(other).setFeeToSetter(other.address)).to.be.revertedWith('PentaswapV2: FORBIDDEN')];
                 case 1:
                     _b.sent();
                     return [4 /*yield*/, factory.setFeeToSetter(other.address)];
@@ -247,7 +247,7 @@ describe('FiveswapV2Factory', function () {
                     return [4 /*yield*/, factory.feeToSetter()];
                 case 3:
                     _a.apply(void 0, [_b.sent()]).to.eq(other.address);
-                    return [4 /*yield*/, (0, chai_1.expect)(factory.setFeeToSetter(wallet.address)).to.be.revertedWith('FiveswapV2: FORBIDDEN')];
+                    return [4 /*yield*/, (0, chai_1.expect)(factory.setFeeToSetter(wallet.address)).to.be.revertedWith('PentaswapV2: FORBIDDEN')];
                 case 4:
                     _b.sent();
                     return [2 /*return*/];

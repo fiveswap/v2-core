@@ -82,7 +82,7 @@ var ERC20_json_1 = __importDefault(require("../build/ERC20.json"));
 chai_1.default.use(ethereum_waffle_1.solidity);
 var TOTAL_SUPPLY = (0, utilities_1.expandTo18Decimals)(10000);
 var TEST_AMOUNT = (0, utilities_1.expandTo18Decimals)(10);
-describe('FiveswapV2ERC20', function () {
+describe('PentaswapV2ERC20', function () {
     var provider = new ethereum_waffle_1.MockProvider({
         hardfork: 'istanbul',
         mnemonic: 'horn horn horn horn horn horn horn horn horn horn horn horn',
@@ -107,7 +107,7 @@ describe('FiveswapV2ERC20', function () {
                 case 0: return [4 /*yield*/, token.name()];
                 case 1:
                     name = _g.sent();
-                    (0, chai_1.expect)(name).to.eq('Fiveswap V2');
+                    (0, chai_1.expect)(name).to.eq('Pentaswap V2');
                     _a = chai_1.expect;
                     return [4 /*yield*/, token.symbol()];
                 case 2:

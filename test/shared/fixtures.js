@@ -45,8 +45,8 @@ var ethers_1 = require("ethers");
 var ethereum_waffle_1 = require("ethereum-waffle");
 var utilities_1 = require("./utilities");
 var ERC20_json_1 = __importDefault(require("../../build/ERC20.json"));
-var fiveswapV2Factory_json_1 = __importDefault(require("../../build/fiveswapV2Factory.json"));
-var fiveswapV2Pair_json_1 = __importDefault(require("../../build/fiveswapV2Pair.json"));
+var pentaswapV2Factory_json_1 = __importDefault(require("../../build/pentaswapV2Factory.json"));
+var pentaswapV2Pair_json_1 = __importDefault(require("../../build/pentaswapV2Pair.json"));
 var overrides = {
     gasLimit: 9999999
 };
@@ -56,7 +56,7 @@ function factoryFixture(_1, _a) {
         var wallet = _b[0];
         return __generator(this, function (_c) {
             switch (_c.label) {
-                case 0: return [4 /*yield*/, (0, ethereum_waffle_1.deployContract)(wallet, fiveswapV2Factory_json_1.default, [wallet.address], overrides)];
+                case 0: return [4 /*yield*/, (0, ethereum_waffle_1.deployContract)(wallet, pentaswapV2Factory_json_1.default, [wallet.address], overrides)];
                 case 1:
                     factory = _c.sent();
                     return [2 /*return*/, { factory: factory }];
@@ -85,7 +85,7 @@ function pairFixture(provider_1, _a) {
                     return [4 /*yield*/, factory.getPair(tokenA.address, tokenB.address)];
                 case 5:
                     pairAddress = _c.sent();
-                    pair = new ethers_1.Contract(pairAddress, JSON.stringify(fiveswapV2Pair_json_1.default.abi), provider).connect(wallet);
+                    pair = new ethers_1.Contract(pairAddress, JSON.stringify(pentaswapV2Pair_json_1.default.abi), provider).connect(wallet);
                     return [4 /*yield*/, pair.token0()];
                 case 6:
                     token0Address = (_c.sent()).address;

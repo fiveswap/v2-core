@@ -80,7 +80,7 @@ chai_1.default.use(ethereum_waffle_1.solidity);
 var overrides = {
     gasLimit: 9999999
 };
-describe('FiveswapV2Pair', function () {
+describe('PentaswapV2Pair', function () {
     var provider = new ethereum_waffle_1.MockProvider({
         hardfork: 'istanbul',
         mnemonic: 'horn horn horn horn horn horn horn horn horn horn horn horn',
@@ -197,7 +197,7 @@ describe('FiveswapV2Pair', function () {
                         return [4 /*yield*/, token0.transfer(pair.address, swapAmount)];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, (0, chai_1.expect)(pair.swap(0, expectedOutputAmount.add(1), wallet.address, '0x', overrides)).to.be.revertedWith('FiveswapV2: K')];
+                        return [4 /*yield*/, (0, chai_1.expect)(pair.swap(0, expectedOutputAmount.add(1), wallet.address, '0x', overrides)).to.be.revertedWith('PentaswapV2: K')];
                     case 3:
                         _a.sent();
                         return [4 /*yield*/, pair.swap(0, expectedOutputAmount, wallet.address, '0x', overrides)];
@@ -227,7 +227,7 @@ describe('FiveswapV2Pair', function () {
                         return [4 /*yield*/, token0.transfer(pair.address, inputAmount)];
                     case 2:
                         _a.sent();
-                        return [4 /*yield*/, (0, chai_1.expect)(pair.swap(outputAmount.add(1), 0, wallet.address, '0x', overrides)).to.be.revertedWith('FiveswapV2: K')];
+                        return [4 /*yield*/, (0, chai_1.expect)(pair.swap(outputAmount.add(1), 0, wallet.address, '0x', overrides)).to.be.revertedWith('PentaswapV2: K')];
                     case 3:
                         _a.sent();
                         return [4 /*yield*/, pair.swap(outputAmount, 0, wallet.address, '0x', overrides)];

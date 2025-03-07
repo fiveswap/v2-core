@@ -1,9 +1,9 @@
 pragma solidity =0.5.16;
 
-import './interfaces/IFiveswapV2Factory.sol';
-import './FiveswapV2Pair.sol';
+import './interfaces/IPentaswapV2Factory.sol';
+import './PentaswapV2Pair.sol';
 
-contract FiveswapV2Factory is IFiveswapV2Factory {
+contract PentaswapV2Factory is IPentaswapV2Factory {
     address public feeTo;
     address public feeToSetter;
 
@@ -22,17 +22,17 @@ contract FiveswapV2Factory is IFiveswapV2Factory {
     }
 
     function createPair(address tokenA, address tokenB) external returns (address pair) {
-        require(tokenA != tokenB, 'FiveswapV2: IDENTICAL_ADDRESSES');
+        require(tokenA != tokenB, 'PentaswapV2: IDENTICAL_ADDRESSES');
         (address token0, address token1) = tokenA < tokenB ? (tokenA, tokenB) : (tokenB, tokenA);
-        require(token0 != address(0), 'FiveswapV2: ZERO_ADDRESS');
-        require(getPair[token0][token1] == address(0), 'FiveswapV2: PAIR_EXISTS'); // single check is sufficient
-        bytes memory bytecode = type(FiveswapV2Pair).creationCode;
+        require(token0 != address(0), 'PentaswapV2: ZERO_ADDRESS');
+        require(getPair[token0][token1] == address(0), 'PentaswapV2: PAIR_EXISTS'); // single check is sufficient
+        bytes memory bytecode = type(PentaswapV2Pair).creationCode;
         bytes32 salt = keccak256(abi.encodePacked(token0, token1));
         assembly {
             pair := create2(0, add(bytecode, 32), mload(bytecode), salt)
         }
         
-        IFiveswapV2Pair(pair).initialize(token0, token1);
+        IPentaswapV2Pair(pair).initialize(token0, token1);
         getPair[token0][token1] = pair;
         getPair[token1][token0] = pair; // populate mapping in the reverse direction
         allPairs.push(pair);
@@ -40,12 +40,12 @@ contract FiveswapV2Factory is IFiveswapV2Factory {
     }
 
     function setFeeTo(address _feeTo) external {
-        require(msg.sender == feeToSetter, 'FiveswapV2: FORBIDDEN');
+        require(msg.sender == feeToSetter, 'PentaswapV2: FORBIDDEN');
         feeTo = _feeTo;
     }
 
     function setFeeToSetter(address _feeToSetter) external {
-        require(msg.sender == feeToSetter, 'FiveswapV2: FORBIDDEN');
+        require(msg.sender == feeToSetter, 'PentaswapV2: FORBIDDEN');
         feeToSetter = _feeToSetter;
     }
 }
