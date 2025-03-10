@@ -1,21 +1,21 @@
 {
-  "name": "@fiveswap/v2-core",
-  "description": "🎛 Core contracts for the fiveswapV2 protocol",
+  "name": "@pentaswap/v2-core",
+  "description": "🎛 Core contracts for the pentaswapV2 protocol",
   "version": "1.0.1",
-  "homepage": "https://fiveswap.org",
+  "homepage": "https://pentaswap.org",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fiveswap/v2-core"
+    "url": "https://github.com/pentaswap/v2-core"
   },
   "publishConfig": {
     "access": "public"
   },
   "keywords": [
-    "fiveswap",
+    "pentaswap",
     "ethereum",
     "v2",
     "core",
-    "fiveswap-v2"
+    "pentaswap-v2"
   ],
   "files": [
     "contracts",
@@ -49,6 +49,6 @@
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@fiveswap/lib": "^1.0.1"
+    "@pentaswap/lib": "^1.0.1"
   }
 }
