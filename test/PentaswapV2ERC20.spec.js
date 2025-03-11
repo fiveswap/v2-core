@@ -111,7 +111,7 @@ describe('PentaswapV2ERC20', function () {
                     _a = chai_1.expect;
                     return [4 /*yield*/, token.symbol()];
                 case 2:
-                    _a.apply(void 0, [_g.sent()]).to.eq('FIVE-V2');
+                    _a.apply(void 0, [_g.sent()]).to.eq('PENTASWAP-V2');
                     _b = chai_1.expect;
                     return [4 /*yield*/, token.decimals()];
                 case 3:

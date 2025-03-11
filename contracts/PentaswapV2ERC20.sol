@@ -7,7 +7,7 @@ contract PentaswapV2ERC20 is IPentaswapV2ERC20 {
     using SafeMath for uint;
 
     string public constant name = 'Pentaswap V2';
-    string public constant symbol = 'Five-V2';
+    string public constant symbol = 'Pentaswap-V2';
     uint8 public constant decimals = 18;
     uint  public totalSupply;
     mapping(address => uint) public balanceOf;

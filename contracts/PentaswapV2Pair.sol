@@ -45,10 +45,10 @@ contract PentaswapV2Pair is IPentaswapV2Pair, PentaswapV2ERC20 {
         (bool success, bytes memory data) = token.call(abi.encodeWithSelector(SELECTOR, to, value));
         require(success && (data.length == 0 || abi.decode(data, (bool))), 'PentaswapV2: TRANSFER_FAILED');
     }
-    require(size > 0, "FiveswapV2: INVALID_TOKEN_ADDRESS");
+    require(size > 0, "PentaswapV2: INVALID_TOKEN_ADDRESS");
 
     (bool success, bytes memory data) = token.call(abi.encodeWithSelector(SELECTOR, to, value));
-    require(success && (data.length == 0 || abi.decode(data, (bool))), "FiveswapV2: TRANSFER_FAILED");
+    require(success && (data.length == 0 || abi.decode(data, (bool))), "PentaswapV2: TRANSFER_FAILED");
 }
 
 

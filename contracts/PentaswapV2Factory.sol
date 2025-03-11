@@ -20,7 +20,7 @@ contract PentaswapV2Factory is IPentaswapV2Factory {
     event FeeToSetterRenounced(address indexed previousFeeToSetter);
 
     constructor(address _feeToSetter) public {
-        require(_feeToSetter != address(0), 'FiveswapV2: ZERO_ADDRESS'); // Zero-address check added
+        require(_feeToSetter != address(0), 'PentaswapV2: ZERO_ADDRESS'); // Zero-address check added
         feeToSetter = _feeToSetter;
     }
 
@@ -57,7 +57,7 @@ contract PentaswapV2Factory is IPentaswapV2Factory {
     }
 
     function renounceFeeToSetter() external {
-        require(msg.sender == feeToSetter, 'FiveswapV2: FORBIDDEN');
+        require(msg.sender == feeToSetter, 'PentaswapV2: FORBIDDEN');
         emit FeeToSetterRenounced(feeToSetter);
         feeToSetter = address(0); // Ownership is renounced
     }
