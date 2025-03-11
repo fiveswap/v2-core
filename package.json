@@ -1,8 +1,9 @@
 {
-  "name": "@pentaswap/v2-core",
+  "name": "@penta-swap/v2-core",
   "description": "🎛 Core contracts for the pentaswapV2 protocol",
-  "version": "1.0.1",
-  "homepage": "https://pentaswap.org",
+  "version": "1.0.2",
+  "homepage": "https://pentaswap.io/",
+  "author": {"name": "syedmohib", "email": "smohib945@gmail.com"},
   "repository": {
     "type": "git",
     "url": "https://github.com/pentaswap/v2-core"
@@ -15,6 +16,8 @@
     "ethereum",
     "v2",
     "core",
+    "penta-swap",
+    "penta-swap-v2",
     "pentaswap-v2"
   ],
   "files": [
@@ -49,6 +52,6 @@
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@pentaswap/lib": "^1.0.1"
+    "@penta-swap/lib": "^1.0.1"
   }
 }
